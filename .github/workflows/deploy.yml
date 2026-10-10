@@ -27,7 +27,8 @@ jobs:
           cache: npm
       - id: pages
         uses: actions/configure-pages@v5
-      - run: npm ci
+      # lockfile 是在 Windows 上生成的，Linux 上个别平台相关的可选依赖对不上，npm ci 会报错，所以用 npm install
+      - run: npm install --no-audit --no-fund
       - run: npm run build
         env:
           # 项目站点在 /仓库名/ 子路径下；绑定自己的域名后 base_path 会自动变成空
